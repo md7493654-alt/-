@@ -1,0 +1,13 @@
+{
+  "name": "Kena Kata Marketplace",
+  "description": "A secure Bangladeshi online marketplace featuring seller verification (NID/Passport), real-time buyer-seller messaging, and integrated payment gateways.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "authentication",
+    "database",
+    "storage",
+    "messaging"
+  ]
+}

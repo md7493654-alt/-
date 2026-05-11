@@ -1,0 +1,80 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a user in the system.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "isVerified": { "type": "boolean" },
+        "role": { "type": "string", "enum": ["buyer", "seller", "moderator", "admin"] },
+        "nid": { "type": "string" },
+        "idPhotoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Represents a product listed for sale.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string" },
+        "images": { "type": "array" },
+        "sellerId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected", "sold"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "Represents a chat conversation between two users.",
+      "type": "object",
+      "properties": {
+        "participants": { "type": "array" },
+        "productId": { "type": "string" },
+        "lastMessage": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Represents a single message in a conversation.",
+      "type": "object",
+      "properties": {
+        "conversationId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Store user profiles."
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Store product listings."
+    },
+    "/conversations/{convId}": {
+      "schema": "Conversation",
+      "description": "Store chat metadata."
+    },
+    "/conversations/{convId}/messages/{msgId}": {
+      "schema": "Message",
+      "description": "Store chat messages."
+    },
+    "/admins/{uid}": {
+      "schema": { "type": "object", "properties": { "email": { "type": "string" } } },
+      "description": "Store admin UIDs for RBAC."
+    }
+  }
+}
